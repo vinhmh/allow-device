@@ -2,12 +2,22 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+    navigator.permissions.query({name: 'microphone'})
+  .then((permissionObj) => {
+    console.log(permissionObj.state); 
+    if(permissionObj.state == 'denied' ){ }
+    // else if (permissionObj.state === 'prompt') alert('You let me use your mic!')
+  })
+  .catch((error) => {
+    console.log('Got error :', error);
+  })
+
   navigator.mediaDevices.getUserMedia({ audio: true })
       .then(function(stream) {
-        alert('You let me use your mic!')
       })
       .catch(function(err) {
-        alert('No mic for you!')
+        if (err.message === "Permission denied") alert('Your microphone has been blocked from browser, Please click on the lock icon in the upper left then select allow and reload page to use microphone!')
+        console.log(err.message)
       });
   return (
     <div className="App">
