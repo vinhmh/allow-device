@@ -16,6 +16,7 @@ function App() {
       .then(function(stream) {
       })
       .catch(function(err) {
+        if (err.message === "Requested device not found") alert('The microphone cannot be found, please install microphone!')
         if (err.message === "Permission denied") alert('Your microphone has been blocked from browser, Please click on the lock icon in the upper left then select allow and reload page to use microphone!')
         console.log(err.message)
       });
